@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Jurusan;
+use App\Models\Kelas;
 
 
 class JurusanController extends Controller
@@ -102,7 +103,11 @@ class JurusanController extends Controller
     public function destroy( Jurusan $jurusan)
     {
         //
-        
+        $kelas = Kelas::where('jurusan_id', $jurusan->id)->first();
+
+        if($kelas){
+            return back()->with('error', "$jurusan->nama_jurusan masih digunakan dimenu Mengajar");
+        }
         $jurusan->delete();
 
         return redirect('/jurusan/index')->with('success', 'Data jurusan berhasil dihapus');

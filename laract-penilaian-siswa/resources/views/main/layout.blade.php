@@ -15,7 +15,7 @@
 <!-- Menu -->
 <div class="menu">
     <b>
-        <a href="/home">HOME</a>
+        <a href="/Home">HOME</a>
         <a href="/guru/index">GURU</a>
         <a href="/jurusan/index">JURUSAN</a>
         <a href="/kelas/index">KELAS</a>

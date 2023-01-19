@@ -2,8 +2,8 @@
 @section('content')
     <center>
         <b>
-            <h2>LIST DATA JURUSAN</h2>
-            <a href="/jurusan/create" class="button-primary">TAMBAH DATA</a>
+            <h2>LIST DATA MENGAJAR</h2>
+            <a href="/mengajar/create" class="button-primary">TAMBAH DATA</a>
             @if(session('success'))
             <p class="text-success">{{ session('success') }}</p>
             @endif
@@ -13,16 +13,20 @@
             <table cellpadding="10">
                 <tr>
                     <th>NO</th>
-                    <th>NAMA JURUSAN</th>
+                    <th>GURU</th>
+                    <th>MATA PELAJARAN</th>
+                    <th>KELAS</th>
                     <th>ACTION</th>
                 </tr>
-                @foreach($jurusan as $j)
+                @foreach($mengajar as $m)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $j->nama_jurusan}}</td>
+                    <td>{{ $m->guru->nama_guru}}</td>
+                    <td>{{ $m->mapel->nama_mapel}}</td>
+                    <td>{{ $m->kelas->nama_kelas}}</td>
                     <td>
-                        <a href="/jurusan/edit/{{$j->id}}" class="button-warning">EDIT</a>
-                        <a href="/jurusan/destroy/{{$j->id}}" class="button-danger" onclick="return confirm('Yakin Hapus')">HAPUS</a>
+                        <a href="/mengajar/edit/{{$m->id}}" class="button-warning">EDIT</a>
+                        <a href="/mengajar/destroy/{{$m->id}}" class="button-danger" onclick="return confirm('Yakin Hapus')">HAPUS</a>
                     </td>
                 </tr>
                 @endforeach

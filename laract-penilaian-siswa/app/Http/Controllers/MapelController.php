@@ -16,7 +16,7 @@ class MapelController extends Controller
     public function index()
     {
         //
-        return view('mapel.index', [
+        return view('mapel.index',[
             'mapel' => Mapel::all()
         ]);
     }
@@ -42,11 +42,11 @@ class MapelController extends Controller
     {
         //
         $data_mapel = $request->validate([
-            'nama_mapel' => ['required']
+            'nama_mapel' => 'required'
         ]);
-
         Mapel::create($data_mapel);
-        return redirect('/mapel/index')->with('success', 'Mata Pelajaran Berhasil di Tambah');
+
+        return redirect('/mapel/index')->with('success', 'Data mapel Berhasil Ditambah');
     }
 
     /**
@@ -85,10 +85,11 @@ class MapelController extends Controller
     {
         //
         $data_mapel = $request->validate([
-            'nama_mapel' => ['required']
+            'nama_mapel' => 'required'
         ]);
         $mapel->update($data_mapel);
-        return redirect('/mapl/index')->with('success',"Data Mata Pelajaran Berhasil di Ubah");
+
+        return redirect('/mapel/index')->with('success', 'Data mapel Berhasil Ditambah');
     }
 
     /**
@@ -100,12 +101,13 @@ class MapelController extends Controller
     public function destroy(Mapel $mapel)
     {
         //
-        $mengajar = Mengajar::where('mapel_id', $mapel->mapel_id)->first();
+        $mengajar = Mengajar::where('mapel_id', $mapel->id)->first();
+        if($mengajar){
+            return back()->with('error', "$mapel->nama_mapel masih digunakan di menu mengajar");
 
-        if($mengajar) {
-            return Mengajar::where('mapel_id', $mapel->mapel_id)->fisrt();
-         }
-         $mapel->delete();
-         return back()->with('success', "Data Mata Pelajaran berhasil di hapus");
+        }
+        $mapel->delete();
+
+        return redirect('/mapel/index')->with('success', 'Data mapel berhasil dihapus');
     }
 }
